@@ -1,31 +1,70 @@
 {
   "name": "dh-cowi-ui",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "version": "0.1.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/cowi-ui-lib.umd.js",
+  "module": "./dist/cowi-ui-lib.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/cowi-ui-lib.es.js",
+      "require": "./dist/cowi-ui-lib.umd.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./styles.css": "./dist/style.css"
   },
   "repository": {
     "type": "git",
     "url": "git+https://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@github.com/cowi-business-it/dh-cowi-ui.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "Digital Hub",
+    "COWI Exchange",
+    "UI Components"
+  ],
+  "author": "Team Supernova",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/cowi-business-it/dh-cowi-ui/issues"
   },
   "homepage": "https://github.com/cowi-business-it/dh-cowi-ui#readme",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "devDependencies": {
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.5.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "@chromatic-com/storybook": "^3.2.4",
+    "@storybook/addon-essentials": "^8.6.0",
+    "@storybook/addon-interactions": "^8.6.0",
+    "@storybook/addon-onboarding": "^8.6.0",
+    "@storybook/blocks": "^8.6.0",
+    "@storybook/react": "^8.6.0",
+    "@storybook/react-vite": "^8.6.0",
+    "@storybook/test": "^8.6.0",
+    "storybook": "^8.6.0",
     "tailwindcss": "^4.0.9",
-    "tsup": "^8.4.0",
     "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.1.2",
+    "@tailwindcss/vite": "^4.0.9",
+    "@vitejs/plugin-react": "^4.3.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.476.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^3.0.2",
+    "vite-plugin-dts": "^4.5.0"
   }
 }
