@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://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@github.com/cowi-business-it/dh-cowi-ui.git"
+    "url": "git+https://github.com/cowi-business-it/dh-cowi-ui.git"
   },
   "keywords": [
     "Digital Hub",
@@ -32,7 +32,9 @@
   },
   "homepage": "https://github.com/cowi-business-it/dh-cowi-ui#readme",
   "scripts": {
-    "dev": "vite",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
@@ -51,9 +53,14 @@
     "@storybook/react": "^8.6.0",
     "@storybook/react-vite": "^8.6.0",
     "@storybook/test": "^8.6.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
+    "jsdom": "^26.0.0",
     "storybook": "^8.6.0",
     "tailwindcss": "^4.0.9",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.7"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
