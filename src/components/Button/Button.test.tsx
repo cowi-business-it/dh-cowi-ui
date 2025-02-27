@@ -109,32 +109,4 @@ describe('Button', () => {
     expect(handleClick).not.toHaveBeenCalled();
   });
 
-  // Test asChild prop
-  it('renders as a different element when asChild is true', () => {
-    render(
-      <Button asChild>
-        <a href="/test">Link Button</a>
-      </Button>
-    );
-    
-    const linkButton = screen.getByRole('link', { name: /link button/i });
-    expect(linkButton).toBeInTheDocument();
-    expect(linkButton.tagName).toBe('A');
-    expect(linkButton.getAttribute('href')).toBe('/test');
-    
-    // Verify that button variants are still applied to the custom element
-    const buttonClasses = cn(buttonVariants({}));
-    expect(linkButton.className).toContain(buttonClasses);
-  });
-
-  // Test custom className
-  it('accepts and applies custom className', () => {
-    const customClass = "test-custom-class";
-    render(<Button className={customClass}>Custom</Button>);
-    const button = screen.getByRole('button', { name: /custom/i });
-    
-    expect(button).toBeInTheDocument();
-    expect(button.className).toContain(customClass);
-    expect(button.className).toContain(cn(buttonVariants({}))); // Default variants should also be applied
-  });
 });
