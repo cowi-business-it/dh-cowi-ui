@@ -13,7 +13,7 @@ describe('Button', () => {
     expect(button).toBeInTheDocument();
     expect(button).not.toBeDisabled();
     // Verify default prop values are applied
-    expect(button.className).toContain(cn(buttonVariants({ variant: 'primary', size: 'default' })));
+    expect(button.className).toContain(cn(buttonVariants({ variant: 'default', size: 'default' })));
   });
 
   // Test variants
