@@ -9,8 +9,9 @@ const buttonVariants = cva(
   {
     variants: {
         variant: {
+        default: "border border-input border-[#CED4DA] bg-background hover:bg-accent hover:text-accent-foreground",
         primary: "bg-cowi text-white hover:bg-cowi/90",
-        secondary: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary: "bg-gray-500 text-white hover:bg-gray-500/90",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -24,7 +25,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "primary",
+      variant: "default",
       size: "default",
       disabled: false,
     },
