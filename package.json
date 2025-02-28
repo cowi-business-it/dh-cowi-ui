@@ -10,9 +10,10 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/cowi-ui-lib.es.js",
       "require": "./dist/cowi-ui-lib.umd.js",
-      "types": "./dist/index.d.ts"
+      "default": "./dist/cowi-ui-lib.es.js"
     },
     "./styles.css": "./dist/style.css"
   },
