@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./Button";
-import { Github, Plus } from "lucide-react"
+import { Github } from "lucide-react"
 
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
@@ -10,9 +10,9 @@ const meta: Meta<typeof Button> = {
   },
   tags: ["autodocs"],
   argTypes: {
-    variant: {
+    emphasis: {
       control: { type: "select" },
-      options: ["primary", "secondary"],
+      options: ["high", "medium", "low"],
       description: "The visual style of the button",
     },
     size: {
@@ -39,18 +39,32 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    children: "Primary Button",
-    variant: "primary",
+    children: "Default Button",
+  },
+};
+
+export const HighEmphasis: Story = {
+  args: {
+    children: "High Emphasis Button",
+    emphasis: "high",
     size: "default",
   },
 };
 
-export const Secondary: Story = {
+export const MediumEmphasis: Story = {
   args: {
-    children: "Secondary Button",
-    variant: "secondary",
+    children: "Medium Emphasis Button",
+    emphasis: "medium",
+    size: "default",
+  },
+};
+
+export const LowEmphasis: Story = {
+  args: {
+    children: "Low Emphasis Button",
+    emphasis: "low",
     size: "default",
   },
 };
