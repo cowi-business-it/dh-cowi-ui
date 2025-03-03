@@ -2,23 +2,24 @@ import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { ApplicationSpecificMenu } from "./ApplicationSpecificMenu";
 import "@testing-library/jest-dom";
+import { FileText, Users } from "lucide-react";
 
 const mockMenuItems = [
   {
     name: "Project Info",
-    icon: "<svg>icon1</svg>",
+    icon: <FileText size={18} />,
     link: "/project/info",
   },
   {
     name: "Members",
-    icon: "<svg>icon2</svg>",
+    icon: <Users size={18} />,
     link: "/project/members",
   },
 ];
 
 describe("ApplicationSpecificMenu", () => {
   it("renders menu items correctly", () => {
-    render(<ApplicationSpecificMenu menuItems={mockMenuItems} />);
+    render(<ApplicationSpecificMenu applicationMenuItems={mockMenuItems} />);
 
     const projectInfo = screen.getByRole("link", { name: /project info/i });
     const members = screen.getByRole("link", { name: /members/i });
@@ -27,15 +28,8 @@ describe("ApplicationSpecificMenu", () => {
     expect(members).toBeInTheDocument();
   });
 
-  it("renders correct number of links", () => {
-    render(<ApplicationSpecificMenu menuItems={mockMenuItems} />);
-
-    const links = screen.getAllByRole("link");
-    expect(links).toHaveLength(2);
-  });
-
   it("renders links with correct hrefs", () => {
-    render(<ApplicationSpecificMenu menuItems={mockMenuItems} />);
+    render(<ApplicationSpecificMenu applicationMenuItems={mockMenuItems} />);
 
     const projectInfoLink = screen.getByRole("link", { name: /project info/i });
     const membersLink = screen.getByRole("link", { name: /members/i });
@@ -45,7 +39,7 @@ describe("ApplicationSpecificMenu", () => {
   });
 
   it("shows no menu items message when empty array provided", () => {
-    render(<ApplicationSpecificMenu menuItems={[]} />);
+    render(<ApplicationSpecificMenu applicationMenuItems={[]} />);
 
     expect(screen.getByText("No menu items available")).toBeInTheDocument();
   });
@@ -57,9 +51,26 @@ describe("ApplicationSpecificMenu", () => {
         link: "/project/info",
       },
     ];
-    render(<ApplicationSpecificMenu menuItems={itemsWithoutIcons} />);
+    render(
+      <ApplicationSpecificMenu applicationMenuItems={itemsWithoutIcons} />
+    );
 
     const link = screen.getByRole("link", { name: /project info/i });
     expect(link).toBeInTheDocument();
+  });
+
+  it("renders correct number of links including Help & Support", () => {
+    render(<ApplicationSpecificMenu applicationMenuItems={mockMenuItems} />);
+
+    const links = screen.getAllByRole("link");
+    expect(links).toHaveLength(3); // 2 menu items + Help & Support
+  });
+
+  it("renders Help & Support link", () => {
+    render(<ApplicationSpecificMenu applicationMenuItems={mockMenuItems} />);
+
+    const helpLink = screen.getByRole("link", { name: /help & support/i });
+    expect(helpLink).toBeInTheDocument();
+    expect(helpLink).toHaveAttribute("href", "/help-support");
   });
 });
