@@ -71,7 +71,7 @@ const ApplicationsDropdown = React.forwardRef<
 
   if (applications.length === 0) {
     return (
-      <div className="flex items-center bg-white border border-gray-200 w-64 gap-2 p-3">
+      <div className="flex items-center text-sm bg-white border border-gray-200 w-64 gap-2 p-3">
         <span className="text-sm font-semibold">No applications available</span>
       </div>
     );
@@ -89,9 +89,7 @@ const ApplicationsDropdown = React.forwardRef<
       <DropdownMenuPrimitive.DropdownMenuTrigger className="flex items-center bg-white border border-gray-200 w-64 gap-2 p-3 focus:bg-gray focus:outline-none">
         <div className="flex items-center gap-2">
           {selectedApp.icon && <SVGIcon svgString={selectedApp.icon} />}
-          <span className="text-sm font-semibold">
-            {selectedApp.applicationName}
-          </span>
+          <span className="text-sm">{selectedApp.applicationName}</span>
         </div>
         <ChevronIcon isOpen={isOpen} />
       </DropdownMenuPrimitive.DropdownMenuTrigger>
@@ -116,9 +114,7 @@ const ApplicationsDropdown = React.forwardRef<
               onClick={() => setSelectedIndex(index)}
             >
               {app.icon && <SVGIcon svgString={app.icon} />}
-              <span className="text-sm font-semibold">
-                {app.applicationName}
-              </span>
+              <span className="text-sm">{app.applicationName}</span>
             </a>
           </DropdownMenuPrimitive.DropdownMenuItem>
         ))}
