@@ -6,7 +6,6 @@ import "@testing-library/jest-dom";
 
 describe("ApplicationsDropdown Properties", () => {
   beforeEach(() => {
-    // Mock window.location.pathname
     Object.defineProperty(window, "location", {
       value: { pathname: "/test" },
       writable: true,
@@ -108,11 +107,9 @@ describe("ApplicationsDropdown Properties", () => {
     const user = userEvent.setup();
     render(<ApplicationsDropdown applications={apps} />);
 
-    // Open the dropdown menu
     const button = screen.getByRole("button");
     await user.click(button);
 
-    // Get all menu items
     const menuItems = screen.getAllByRole("menuitem");
     expect(menuItems[0]).toHaveTextContent("Alpha App");
     expect(menuItems[1]).toHaveTextContent("Zebra App");

@@ -6,7 +6,7 @@ import { cn } from "../../core/utils";
 interface Application {
   applicationName: string;
   icon?: string;
-  iconColor?: string; // Added color prop
+  iconColor?: string;
   linkToApplication: string;
 }
 
@@ -42,12 +42,11 @@ const ApplicationsDropdown: React.FC<ApplicationsDropdownProps> = ({
 }) => {
   const currentPath = window.location.pathname;
 
-  // Find index of current application based on URL
   const getCurrentAppIndex = () => {
     const index = applications.findIndex((app) =>
       currentPath.startsWith(app.linkToApplication)
     );
-    return index >= 0 ? index : 0; // Default to first if not found
+    return index >= 0 ? index : 0;
   };
   const [selectedIndex, setSelectedIndex] = React.useState(
     getCurrentAppIndex()
