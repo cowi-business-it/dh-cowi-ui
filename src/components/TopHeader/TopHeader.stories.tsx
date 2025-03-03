@@ -12,47 +12,14 @@ const meta: Meta<typeof TopHeader> = {
     },
     docs: {
       description: {
-        component: `
-        ## TopHeader
-
-        A fixed header component that displays a company logo at the top of the application.
-
-        ### Usage
-
-        \`\`\`tsx
-        import { TopHeader } from "./components/TopHeader";
-
-        function App() {
-          return (
-            <TopHeader
-              logo="/assets/images/cowi-logo.png"
-              logoAlt="Your Company Logo"
-            />
-          );
-        }
-        \`\`\`
-        `,
+        component: "A fixed header component that displays a company logo.",
       },
       story: {
-        height: "200px",
+        height: "100px",
         width: "100%",
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          minHeight: "200px",
-          width: "100%",
-          backgroundColor: "rgb(229 231 235)",
-          position: "relative",
-        }}
-      >
-        <Story />
-      </div>
-    ),
-  ],
   tags: ["autodocs"],
   argTypes: {
     logo: {
@@ -62,6 +29,10 @@ const meta: Meta<typeof TopHeader> = {
     logoAlt: {
       control: "text",
       description: "Alt text for the logo",
+    },
+    landingPageUrl: {
+      control: "text",
+      description: "URL to navigate to when logo is clicked",
     },
   },
 };
@@ -73,6 +44,7 @@ export const Default: Story = {
   args: {
     logo: cowiLogo,
     logoAlt: "COWI Logo",
+    landingPageUrl: "/",
   },
   parameters: {
     docs: {

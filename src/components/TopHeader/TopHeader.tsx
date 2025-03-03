@@ -5,12 +5,14 @@ interface TopHeaderProps {
   logo: string;
   logoAlt?: string;
   className?: string;
+  landingPageUrl?: string;
 }
 
 const TopHeader = ({
   className,
   logo,
   logoAlt = "Company Logo",
+  landingPageUrl,
 }: TopHeaderProps) => {
   return (
     <>
@@ -26,11 +28,13 @@ const TopHeader = ({
       >
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center pl-2 h-[32px]">
-            <img
-              src={logo}
-              alt={logoAlt}
-              className="h-[12px] w-[41px] object-contain"
-            />
+            <a href={landingPageUrl}>
+              <img
+                src={logo}
+                alt={logoAlt}
+                className="h-[12px] w-[41px] object-contain"
+              />
+            </a>
           </div>
         </div>
       </header>

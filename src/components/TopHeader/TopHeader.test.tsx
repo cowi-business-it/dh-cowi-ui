@@ -11,4 +11,10 @@ describe("TopHeader", () => {
     const logoElement = screen.getByRole("img");
     expect(logoElement).toHaveAttribute("src", mockLogo);
   });
+
+  it("renders with default landing page URL", () => {
+    render(<TopHeader logo={mockLogo} />);
+    const linkElement = screen.getByRole("link");
+    expect(linkElement).toHaveAttribute("href", "/");
+  });
 });
