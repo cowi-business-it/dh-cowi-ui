@@ -1,55 +1,120 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ApplicationsDropdown } from "./ApplicationsDropdown";
 import "@testing-library/jest-dom";
 
-const mockApplications = [
-  {
-    applicationName: "Project Admin",
-    icon: "<svg>icon1</svg>",
-    linkToApplication: "/project-admin",
-  },
-  {
-    applicationName: "Product Overview",
-    icon: "<svg>icon2</svg>",
-    linkToApplication: "/product-overview",
-  },
-];
-
-describe("ApplicationsDropdown", () => {
-  it("renders with default selected application", () => {
-    render(<ApplicationsDropdown applications={mockApplications} />);
-    const defaultApp = screen.getByRole("button");
-    expect(defaultApp).toHaveTextContent("Project Admin");
+describe("ApplicationsDropdown Properties", () => {
+  beforeEach(() => {
+    // Mock window.location.pathname
+    Object.defineProperty(window, "location", {
+      value: { pathname: "/test" },
+      writable: true,
+    });
   });
 
-  it("shows all applications when clicked", async () => {
-    const user = userEvent.setup();
-    render(<ApplicationsDropdown applications={mockApplications} />);
-
-    const trigger = screen.getByRole("button");
-    await user.click(trigger);
-
-    // After clicking, both options should be visible
-    expect(
-      screen.getByRole("menuitem", { name: /project admin/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("menuitem", { name: /product overview/i })
-    ).toBeInTheDocument();
-  });
-
-  it("handles empty string values", () => {
-    const appsWithEmptyStrings = [
+  it("renders application name correctly", () => {
+    const apps = [
       {
-        applicationName: "App 1",
-        icon: "",
-        linkToApplication: "/app1",
+        applicationName: "Test App",
+        linkToApplication: "/test",
       },
     ];
-    render(<ApplicationsDropdown applications={appsWithEmptyStrings} />);
+
+    render(<ApplicationsDropdown applications={apps} />);
+    expect(screen.getByText("Test App")).toBeInTheDocument();
+  });
+
+  it("renders with icon when provided", () => {
+    const apps = [
+      {
+        applicationName: "Test App",
+        icon: '<svg stroke="currentColor">test-icon</svg>',
+        linkToApplication: "/test",
+      },
+    ];
+
+    render(<ApplicationsDropdown applications={apps} />);
+    const svgElement = screen.getByText("test-icon", { selector: "svg" });
+    expect(svgElement).toBeInTheDocument();
+  });
+
+  it("uses default black color when iconColor is not provided", () => {
+    const apps = [
+      {
+        applicationName: "Test App",
+        icon: '<svg stroke="currentColor">test-icon</svg>',
+        linkToApplication: "/test",
+      },
+    ];
+
+    render(<ApplicationsDropdown applications={apps} />);
+    const svgElement = screen.getByText("test-icon", { selector: "svg" });
+    expect(svgElement).toHaveAttribute("stroke", "#000000");
+  });
+
+  it("uses provided iconColor when specified", () => {
+    const apps = [
+      {
+        applicationName: "Test App",
+        icon: '<svg stroke="currentColor">test-icon</svg>',
+        iconColor: "#FF0000",
+        linkToApplication: "/test",
+      },
+    ];
+
+    render(<ApplicationsDropdown applications={apps} />);
+    const svgElement = screen.getByText("test-icon", { selector: "svg" });
+    expect(svgElement).toHaveAttribute("stroke", "#FF0000");
+  });
+
+  it("renders with correct link to application", async () => {
+    const apps = [
+      {
+        applicationName: "Test App",
+        linkToApplication: "/test-link",
+      },
+    ];
+
+    const user = userEvent.setup();
+    render(<ApplicationsDropdown applications={apps} />);
+
+    // Open the dropdown menu
     const button = screen.getByRole("button");
-    expect(button).toHaveTextContent("App 1");
+    await user.click(button);
+
+    // Check the link in the dropdown menu
+    const menuItems = screen.getAllByRole("menuitem");
+    expect(menuItems[0]).toHaveAttribute("href", "/test-link");
+  });
+
+  it("handles empty applications array", () => {
+    render(<ApplicationsDropdown applications={[]} />);
+    expect(screen.getByText("No applications available")).toBeInTheDocument();
+  });
+
+  it("sorts applications alphabetically", async () => {
+    const apps = [
+      {
+        applicationName: "Zebra App",
+        linkToApplication: "/zebra",
+      },
+      {
+        applicationName: "Alpha App",
+        linkToApplication: "/alpha",
+      },
+    ];
+
+    const user = userEvent.setup();
+    render(<ApplicationsDropdown applications={apps} />);
+
+    // Open the dropdown menu
+    const button = screen.getByRole("button");
+    await user.click(button);
+
+    // Get all menu items
+    const menuItems = screen.getAllByRole("menuitem");
+    expect(menuItems[0]).toHaveTextContent("Alpha App");
+    expect(menuItems[1]).toHaveTextContent("Zebra App");
   });
 });

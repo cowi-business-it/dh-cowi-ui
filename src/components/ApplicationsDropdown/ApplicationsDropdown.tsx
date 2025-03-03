@@ -1,60 +1,45 @@
 import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { cn } from "../../core/utils";
 
 interface Application {
   applicationName: string;
   icon?: string;
+  iconColor?: string; // Added color prop
   linkToApplication: string;
 }
 
-const SVGIcon: React.FC<{ svgString?: string }> = ({ svgString }) => {
+const SVGIcon: React.FC<{ svgString?: string; color?: string }> = ({
+  svgString,
+  color,
+}) => {
   if (!svgString) return null;
-  return <span dangerouslySetInnerHTML={{ __html: svgString }} />;
+  const coloredSvg = color
+    ? svgString.replace(/stroke="currentColor"/, `stroke="${color}"`)
+    : svgString;
+  return <span dangerouslySetInnerHTML={{ __html: coloredSvg }} />;
 };
 
 interface ApplicationsDropdownProps {
   applications: Application[];
-  // defaultSelected?: number;
 }
 
 const ChevronIcon: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
   return (
     <div className="relative w-3 h-3">
       {isOpen ? (
-        // Downward chevron
-        <svg width="12" height="12" viewBox="0 0 12 12">
-          <path
-            d="M2.25 4.5L6 8.25L9.75 4.5"
-            fill="none"
-            stroke="#9ca3af" //gray-400
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <ChevronDown className="w-3 h-3 text-gray-400" />
       ) : (
-        // Right chevron
-        <svg width="12" height="12" viewBox="0 0 12 12">
-          <path
-            d="M4.5 2.25L8.25 6L4.5 9.75"
-            fill="none"
-            stroke="#9ca3af" //gray-400
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <ChevronRight className="w-3 h-3 text-gray-400" />
       )}
     </div>
   );
 };
 
-const ApplicationsDropdown = React.forwardRef<
-  HTMLDivElement,
-  ApplicationsDropdownProps
->(({ applications }) => {
-  // Get current path to determine selected application
+const ApplicationsDropdown: React.FC<ApplicationsDropdownProps> = ({
+  applications,
+}) => {
   const currentPath = window.location.pathname;
 
   // Find index of current application based on URL
@@ -72,15 +57,18 @@ const ApplicationsDropdown = React.forwardRef<
   if (applications.length === 0) {
     return (
       <div className="flex items-center text-sm bg-white border border-gray-200 w-64 gap-2 p-3">
-        <span className="text-sm font-semibold">No applications available</span>
+        <span className="text-sm">No applications available</span>
       </div>
     );
   }
-  const normalizedApps = applications.map((app) => ({
-    applicationName: app.applicationName || "",
-    icon: app.icon || "",
-    linkToApplication: app.linkToApplication || "",
-  }));
+  const normalizedApps = applications
+    .map((app) => ({
+      applicationName: app.applicationName || "",
+      icon: app.icon || "",
+      iconColor: app.iconColor || "#000000",
+      linkToApplication: app.linkToApplication || "",
+    }))
+    .sort((a, b) => a.applicationName.localeCompare(b.applicationName));
 
   const selectedApp = normalizedApps[selectedIndex];
 
@@ -88,7 +76,12 @@ const ApplicationsDropdown = React.forwardRef<
     <DropdownMenuPrimitive.DropdownMenu onOpenChange={setIsOpen}>
       <DropdownMenuPrimitive.DropdownMenuTrigger className="flex items-center bg-white border border-gray-200 w-64 gap-2 p-3 focus:bg-gray focus:outline-none">
         <div className="flex items-center gap-2">
-          {selectedApp.icon && <SVGIcon svgString={selectedApp.icon} />}
+          {selectedApp.icon && (
+            <SVGIcon
+              svgString={selectedApp.icon}
+              color={selectedApp.iconColor}
+            />
+          )}
           <span className="text-sm">{selectedApp.applicationName}</span>
         </div>
         <ChevronIcon isOpen={isOpen} />
@@ -99,7 +92,7 @@ const ApplicationsDropdown = React.forwardRef<
           "shadow-lg"
         )}
       >
-        {applications.map((app, index) => (
+        {normalizedApps.map((app, index) => (
           <DropdownMenuPrimitive.DropdownMenuItem
             key={app.linkToApplication}
             className={cn(
@@ -113,7 +106,9 @@ const ApplicationsDropdown = React.forwardRef<
               className="flex items-center gap-2 p-3"
               onClick={() => setSelectedIndex(index)}
             >
-              {app.icon && <SVGIcon svgString={app.icon} />}
+              {app.icon && (
+                <SVGIcon svgString={app.icon} color={app.iconColor} />
+              )}{" "}
               <span className="text-sm">{app.applicationName}</span>
             </a>
           </DropdownMenuPrimitive.DropdownMenuItem>
@@ -121,12 +116,9 @@ const ApplicationsDropdown = React.forwardRef<
       </DropdownMenuPrimitive.DropdownMenuContent>
     </DropdownMenuPrimitive.DropdownMenu>
   );
-});
+};
 
 ApplicationsDropdown.displayName = "ApplicationsDropdown";
 
-export {
-  ApplicationsDropdown as ApplicationsDropdown,
-  type Application,
-  type ApplicationsDropdownProps as ApplicationsDropdownProps,
-};
+export { ApplicationsDropdown };
+export type { Application, ApplicationsDropdownProps };
