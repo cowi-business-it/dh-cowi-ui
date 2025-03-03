@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { User, LogOut, UserCog } from "lucide-react";
 import { cn } from "../../core/utils";
 
@@ -11,14 +11,6 @@ interface UserInfoProps {
   profileUrl?: string;
   onLogout?: () => void;
 }
-
-const getInitials = (name: string) => {
-  return name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase();
-};
 
 const Avatar: React.FC<{
   name: string;
@@ -46,8 +38,8 @@ export const UserInfo = React.forwardRef<HTMLDivElement, UserInfoProps>(
   ({ name, initials, email, photoUrl, profileUrl, onLogout }, ref) => {
     return (
       <div ref={ref} className="relative inline-block">
-        <DropdownMenu.Root>
-          <DropdownMenu.Trigger asChild>
+        <DropdownMenuPrimitive.Root>
+          <DropdownMenuPrimitive.Trigger asChild>
             <button
               className="flex items-center gap-2 rounded-full p-1 outline-none hover:bg-gray-100"
               aria-label="User menu"
@@ -55,10 +47,10 @@ export const UserInfo = React.forwardRef<HTMLDivElement, UserInfoProps>(
               <UserCog className="h-5 w-5" />
               <Avatar name={name} initials={initials} photoUrl={photoUrl} />
             </button>
-          </DropdownMenu.Trigger>
+          </DropdownMenuPrimitive.Trigger>
 
-          <DropdownMenu.Portal>
-            <DropdownMenu.Content
+          <DropdownMenuPrimitive.Portal>
+            <DropdownMenuPrimitive.Content
               className="w-56 rounded-md bg-white p-1 shadow-lg ring-1 ring-gray-200 ring-opacity-5"
               align="end"
             >
@@ -67,7 +59,7 @@ export const UserInfo = React.forwardRef<HTMLDivElement, UserInfoProps>(
                 <p className="text-xs text-gray-500">{email}</p>
               </div>
 
-              <DropdownMenu.Item asChild>
+              <DropdownMenuPrimitive.Item asChild>
                 <a
                   href={profileUrl}
                   className={cn(
@@ -79,9 +71,9 @@ export const UserInfo = React.forwardRef<HTMLDivElement, UserInfoProps>(
                   <User className="h-4 w-4" />
                   Profile
                 </a>
-              </DropdownMenu.Item>
+              </DropdownMenuPrimitive.Item>
 
-              <DropdownMenu.Item asChild>
+              <DropdownMenuPrimitive.Item asChild>
                 <button
                   onClick={onLogout}
                   className={cn(
@@ -93,10 +85,10 @@ export const UserInfo = React.forwardRef<HTMLDivElement, UserInfoProps>(
                   <LogOut className="h-4 w-4" />
                   Sign out
                 </button>
-              </DropdownMenu.Item>
-            </DropdownMenu.Content>
-          </DropdownMenu.Portal>
-        </DropdownMenu.Root>
+              </DropdownMenuPrimitive.Item>
+            </DropdownMenuPrimitive.Content>
+          </DropdownMenuPrimitive.Portal>
+        </DropdownMenuPrimitive.Root>
       </div>
     );
   }
