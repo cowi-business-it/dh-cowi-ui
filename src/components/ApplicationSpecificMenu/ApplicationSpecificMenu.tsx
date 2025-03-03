@@ -24,7 +24,7 @@ const ApplicationSpecificMenu = React.forwardRef<
     return (
       <div ref={ref} className="w-64 overflow-hidden">
         <div className="flex items-center gap-2 p-3 text-gray-400">
-          <span className="text-sm font-semibold">No menu items available</span>
+          <span className="text-sm">No menu items available</span>
         </div>
       </div>
     );
@@ -37,8 +37,7 @@ const ApplicationSpecificMenu = React.forwardRef<
           href={item.link}
           className={cn(
             "flex items-center gap-2 p-3 hover:bg-gray-100",
-            "border-b border-gray-200 last:border-b-0",
-            "text-sm font-semibold",
+            "text-sm",
             "transition-colors duration-200"
           )}
         >
