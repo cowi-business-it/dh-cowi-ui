@@ -22,7 +22,7 @@ export const Default: Story = {
   render: () => (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Share</Button>
+        <Button>Share</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
@@ -41,7 +41,7 @@ export const Default: Story = {
         </div>
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
-            <Button type="button" variant="secondary">
+            <Button type="button" emphasis="low">
               Close
             </Button>
           </DialogClose>
