@@ -3,7 +3,7 @@ import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { User, LogOut } from "lucide-react";
 import { cn } from "../../core/utils";
 
-interface UserInfoProps {
+export interface UserInfoProps {
   name: string;
   initials: string;
   email: string;
@@ -34,7 +34,7 @@ const Avatar: React.FC<{
   );
 };
 
-export const UserInfo = React.forwardRef<HTMLDivElement, UserInfoProps>(
+const UserInfo = React.forwardRef<HTMLDivElement, UserInfoProps>(
   ({ name, initials, email, photoUrl, profileUrl, onLogout }, ref) => {
     return (
       <div ref={ref} className="relative inline-block">
@@ -94,3 +94,4 @@ export const UserInfo = React.forwardRef<HTMLDivElement, UserInfoProps>(
 );
 
 UserInfo.displayName = "UserInfo";
+export { UserInfo };
