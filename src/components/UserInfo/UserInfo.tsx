@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
-import { User, LogOut, UserCog } from "lucide-react";
+import { User, LogOut } from "lucide-react";
 import { cn } from "../../core/utils";
 
 interface UserInfoProps {
@@ -44,7 +44,6 @@ export const UserInfo = React.forwardRef<HTMLDivElement, UserInfoProps>(
               className="flex items-center gap-2 rounded-full p-1 outline-none hover:bg-gray-100"
               aria-label="User menu"
             >
-              <UserCog className="h-5 w-5" />
               <Avatar name={name} initials={initials} photoUrl={photoUrl} />
             </button>
           </DropdownMenuPrimitive.Trigger>
