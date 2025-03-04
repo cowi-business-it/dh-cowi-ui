@@ -13,34 +13,46 @@ describe('Button', () => {
     expect(button).toBeInTheDocument();
     expect(button).not.toBeDisabled();
     // Verify default prop values are applied
-    expect(button.className).toContain(cn(buttonVariants({ variant: 'default', size: 'default' })));
+    expect(button.className).toContain(cn(buttonVariants({  })));
   });
 
   // Test variants
-  it('renders with primary variant', () => {
-    render(<Button variant="primary">Primary</Button>);
-    const primaryButton = screen.getByRole('button', { name: /primary/i });
+  it('renders with high emphasis variant', () => {
+    render(<Button emphasis="high">High</Button>);
+    const primaryButton = screen.getByRole('button', { name: /high/i });
     
-    expect(primaryButton.className).toContain(cn(buttonVariants({ variant: 'primary' })));
+    expect(primaryButton.className).toContain(cn(buttonVariants({ emphasis: 'high' })));
   });
 
-  it('renders with secondary variant', () => {
-    render(<Button variant="secondary">Secondary</Button>);
-    const secondaryButton = screen.getByRole('button', { name: /secondary/i });
+  it('renders with medium emphasis variant', () => {
+    render(<Button emphasis="medium">Medium</Button>);
+    const secondaryButton = screen.getByRole('button', { name: /medium/i });
     
-    expect(secondaryButton.className).toContain(cn(buttonVariants({ variant: 'secondary' })));
+    expect(secondaryButton.className).toContain(cn(buttonVariants({ emphasis: 'medium' })));
     
-    // Compare primary and secondary to ensure they're different
-    render(<Button variant="primary">Primary</Button>);
-    const primaryButton = screen.getByRole('button', { name: /primary/i });
+    // Compare medium and high emphasis to ensure they're different
+    render(<Button emphasis="high">High</Button>);
+    const primaryButton = screen.getByRole('button', { name: /high/i });
+    expect(secondaryButton.className).not.toBe(primaryButton.className);
+  });
+
+  it('renders with low emphasis variant', () => {
+    render(<Button emphasis="low">low</Button>);
+    const secondaryButton = screen.getByRole('button', { name: /low/i });
+    
+    expect(secondaryButton.className).toContain(cn(buttonVariants({ emphasis: 'low' })));
+    
+    // Compare low and high emphasis to ensure they're different
+    render(<Button emphasis="high">High</Button>);
+    const primaryButton = screen.getByRole('button', { name: /high/i });
     expect(secondaryButton.className).not.toBe(primaryButton.className);
   });
 
   // Test sizes - each in a separate test
   it('renders with default size', () => {
-    render(<Button size="default">Default Size</Button>);
+    render(<Button>Default Size</Button>);
     const defaultButton = screen.getByRole('button', { name: /default size/i });
-    expect(defaultButton.className).toContain(cn(buttonVariants({ size: 'default' })));
+    expect(defaultButton.className).toContain(cn(buttonVariants({ })));
   });
   
   it('renders with small size', () => {

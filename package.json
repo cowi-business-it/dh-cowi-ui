@@ -10,9 +10,10 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/cowi-ui-lib.es.js",
       "require": "./dist/cowi-ui-lib.umd.js",
-      "types": "./dist/index.d.ts"
+      "default": "./dist/cowi-ui-lib.es.js"
     },
     "./styles.css": "./dist/style.css"
   },
@@ -63,6 +64,8 @@
     "vitest": "^3.0.7"
   },
   "dependencies": {
+    "@radix-ui/react-checkbox": "^1.1.4",
+    "@radix-ui/react-select": "^2.1.6",
     "@radix-ui/react-slot": "^1.1.2",
     "@tailwindcss/vite": "^4.0.9",
     "@vitejs/plugin-react": "^4.3.4",

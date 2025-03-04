@@ -10,9 +10,9 @@ const meta: Meta<typeof Button> = {
   },
   tags: ["autodocs"],
   argTypes: {
-    variant: {
+    emphasis: {
       control: { type: "select" },
-      options: ["default", "primary", "secondary"],
+      options: ["high", "medium", "low"],
       description: "The visual style of the button",
     },
     size: {
@@ -42,23 +42,29 @@ type Story = StoryObj<typeof Button>;
 export const Default: Story = {
   args: {
     children: "Default Button",
-    variant: "default",
+  },
+};
+
+export const HighEmphasis: Story = {
+  args: {
+    children: "High Emphasis Button",
+    emphasis: "high",
     size: "default",
   },
 };
 
-export const Primary: Story = {
+export const MediumEmphasis: Story = {
   args: {
-    children: "Primary Button",
-    variant: "primary",
+    children: "Medium Emphasis Button",
+    emphasis: "medium",
     size: "default",
   },
 };
 
-export const Secondary: Story = {
+export const LowEmphasis: Story = {
   args: {
-    children: "Secondary Button",
-    variant: "secondary",
+    children: "Low Emphasis Button",
+    emphasis: "low",
     size: "default",
   },
 };
