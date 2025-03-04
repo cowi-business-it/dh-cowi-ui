@@ -72,7 +72,7 @@ export const Default: Story = {
         <div className="flex items-center space-x-2">
           <div className="grid flex-1 gap-2">
             <input
-              className="flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               defaultValue="https://example.com/link/to/share"
               readOnly
             />
@@ -82,9 +82,9 @@ export const Default: Story = {
             <Copy className="h-4 w-4" />
           </Button>
         </div>
-        <DialogFooter className="sm:justify-start">
+        <DialogFooter>
           <DialogClose asChild>
-            <Button type="button" emphasis="low">
+            <Button type="button" >
               Close
             </Button>
           </DialogClose>
