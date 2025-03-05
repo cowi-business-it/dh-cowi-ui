@@ -99,11 +99,6 @@ const ProjectSelector = React.forwardRef<
       <PopoverTrigger asChild>
         <button
           ref={ref}
-          type="button"
-          role="combobox"
-          title="Select a project"
-          aria-expanded={open}
-          aria-controls="project-list"
           className="min-w-[200px] max-w-[400px] flex items-center justify-between cursor-pointer"
         >
           <div className="flex items-center truncate">
