@@ -123,6 +123,7 @@ const ProjectSelector = React.forwardRef<
             placeholder="Search projects by name or number..."
             className="h-9"
             value={search}
+            onValueChange={setSearch}
           />
           <CommandList id="project-list">
             <CommandEmpty>No project found.</CommandEmpty>
