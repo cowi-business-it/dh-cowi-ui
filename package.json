@@ -73,7 +73,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "cmdk": "^1.0.0",
+    "cmdk": "^1.0.4",
     "lucide-react": "^0.476.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
