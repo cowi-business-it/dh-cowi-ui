@@ -41,10 +41,3 @@ dist/**/*
 # ignore yarn.lock
 yarn.lock
 *storybook.log
-.vs/VSWorkspaceState.json
-.vs/dh-cowi-ui/CopilotIndices/17.12.38.29086/CodeChunks.db
-.vs/dh-cowi-ui/CopilotIndices/17.12.38.29086/SemanticSymbols.db
-.vs/dh-cowi-ui/CopilotIndices/17.12.38.29086/SemanticSymbols.db-shm
-.vs/dh-cowi-ui/CopilotIndices/17.12.38.29086/SemanticSymbols.db-wal
-.vs/dh-cowi-ui/v17/.wsuo
-.vs/dh-cowi-ui/v17/DocumentLayout.json
