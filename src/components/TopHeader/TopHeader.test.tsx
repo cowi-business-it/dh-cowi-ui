@@ -13,7 +13,7 @@ describe("TopHeader", () => {
   });
 
   it("renders with default landing page URL", () => {
-    render(<TopHeader logo={mockLogo} />);
+    render(<TopHeader logo={mockLogo} landingPageUrl="/" />);
     const linkElement = screen.getByRole("link");
     expect(linkElement).toHaveAttribute("href", "/");
   });
