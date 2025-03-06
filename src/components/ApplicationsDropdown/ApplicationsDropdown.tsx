@@ -73,7 +73,7 @@ const ApplicationsDropdown: React.FC<ApplicationsDropdownProps> = ({
 
   return (
     <DropdownMenuPrimitive.DropdownMenu onOpenChange={setIsOpen}>
-      <DropdownMenuPrimitive.DropdownMenuTrigger className="flex items-center max-w-[220px] bg-white border border-gray-200 gap-2 p-3 focus:bg-gray focus:outline-none">
+      <DropdownMenuPrimitive.DropdownMenuTrigger className="flex items-center w-[220px] bg-white border border-gray-200 gap-2 p-3 focus:bg-gray focus:outline-none">
         <div className="flex items-center gap-2">
           {selectedApp.icon && (
             <SVGIcon
