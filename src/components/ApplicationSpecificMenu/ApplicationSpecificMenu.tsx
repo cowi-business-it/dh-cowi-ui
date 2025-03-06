@@ -17,7 +17,7 @@ const HelpSupportLink = () => (
     <a
       href="/help-support"
       className={cn(
-        "flex items-center gap-2 p-3 hover:bg-gray-100",
+        "flex items-center w-[220px] gap-2 p-3 hover:bg-gray-100",
         "text-sm text-gray-600",
         "transition-colors duration-200"
       )}
@@ -33,7 +33,7 @@ const ApplicationSpecificMenu = React.forwardRef<
   ApplicationSpecificMenuProps
 >(({ applicationMenuItems: menuItems }, ref) => {
   return (
-    <div ref={ref} className="flex flex-col w-64 h-full bg-white">
+    <div ref={ref} className="flex flex-col w-[220px] h-full bg-white">
       <div className="flex-none">
         {menuItems?.length ? (
           menuItems.map((item) => (
