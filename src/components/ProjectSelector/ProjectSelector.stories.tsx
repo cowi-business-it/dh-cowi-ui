@@ -27,6 +27,30 @@ const mockProjects: ProjectProps[] = [
     value: "M446466",
     label: "M446466 - Office Building Gama",
   },
+  {
+    value: "H789012",
+    label: "H789012 - Shopping Mall Complex",
+  },
+  {
+    value: "K345678",
+    label: "K345678 - Research Laboratory",
+  },
+  {
+    value: "L901234",
+    label: "L901234 - Sports Arena Development",
+  },
+  {
+    value: "N567890",
+    label: "N567890 - Residential Tower West",
+  },
+  {
+    value: "P123789",
+    label: "P123789 - Underground Parking Facility",
+  },
+  {
+    value: "R456123",
+    label: "R456123 - Public Library Renovation",
+  },
 ];
 
 const meta: Meta<typeof ProjectSelector> = {
@@ -61,15 +85,25 @@ type Story = StoryObj<typeof ProjectSelector>;
 export const Default: Story = {
   args: {
     projects: mockProjects,
-    onProjectSelect: (projectId: string) =>
-      console.log("Selected project:", projectId),
+    selectedProject: mockProjects[1],
+  },
+};
+
+export const WithTruncatedLabel: Story = {
+  args: {
+    projects: mockProjects,
+    selectedProject: mockProjects[2],
+  },
+};
+
+export const WithNoneSelected: Story = {
+  args: {
+    projects: mockProjects,
   },
 };
 
 export const EmptyProjects: Story = {
   args: {
     projects: [],
-    onProjectSelect: (projectId: string) =>
-      console.log("Selected project:", projectId),
   },
 };

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Check, ChevronDown, Folder } from "lucide-react";
+import { Check, ChevronDown, ChevronRight, Folder } from "lucide-react";
 
 import { cn } from "../../core/utils";
 import {
@@ -19,136 +19,93 @@ export interface ProjectProps {
 
 export interface ProjectSelectorProps {
   projects: ProjectProps[];
+  selectedProject?: ProjectProps;
   onProjectSelect?: (value: string) => void;
-}
-
-function fuzzySearch(str: string, query: string): boolean {
-  // split the search query into words and deduplicate consecutive characters
-  const searchWords = query
-    .toLowerCase()
-    .trim()
-    .split(/\s+/)
-    .map((word) =>
-      word
-        .split("")
-        .reduce((acc, char) => {
-          if (acc.length === 0 || acc[acc.length - 1] !== char) {
-            acc.push(char);
-          }
-          return acc;
-        }, [] as string[])
-        .join("")
-    );
-
-  const strLower = str.toLowerCase();
-
-  return searchWords.every((word) => {
-    const pattern = word
-      .split("")
-      .map((char) => char.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
-      .join(".*");
-    const regex = new RegExp(pattern);
-    return regex.test(strLower);
-  });
 }
 
 const ProjectSelector = React.forwardRef<
   HTMLButtonElement,
   ProjectSelectorProps
->(({ projects, onProjectSelect }, ref) => {
+>(({ projects, selectedProject, onProjectSelect }, ref) => {
   const [open, setOpen] = React.useState(false);
-  const [label, setLabel] = React.useState("");
-  const [search, setSearch] = React.useState("");
+  const [label, setLabel] = React.useState(selectedProject?.label ?? "");
+
+  React.useEffect(() => {
+    setLabel(selectedProject?.label ?? "");
+  }, [selectedProject]);
 
   const handleSelect = (currentLabel: string) => {
     setLabel(currentLabel);
     setOpen(false);
-    const selectedProject = projects.find(
+    const selected = projects.find(
       (project) => project.label === currentLabel
-    );
-    if (selectedProject && onProjectSelect) {
-      onProjectSelect(selectedProject.value);
+    )?.value;
+    if (selected && onProjectSelect) {
+      onProjectSelect(selected);
     }
   };
-
-  const filteredProjects = React.useMemo(() => {
-    const selectedProject = projects.find((project) => project.label === label);
-
-    const filtered = projects
-      .filter((project) => {
-        if (!search) return true;
-        return fuzzySearch(project.label, search);
-      })
-      .sort((a, b) => a.label.localeCompare(b.label));
-
-    // Remove the selected project from filtered results to avoid duplication
-    const withoutSelected = filtered.filter(
-      (project) => project.label !== label
-    );
-
-    // If we have a selected project that's not in the first 4 results,
-    // remove the last item and add the selected project
-    if (
-      selectedProject &&
-      !filtered.slice(0, 4).some((p) => p.label === label)
-    ) {
-      return [selectedProject, ...withoutSelected.slice(0, 3)];
-    }
-
-    return filtered.slice(0, 4);
-  }, [projects, search, label]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <button
           ref={ref}
-          className="min-w-[200px] max-w-[400px] flex items-center justify-between cursor-pointer"
+          className="max-w-[350px] flex items-center justify-between cursor-pointer"
         >
           <div className="flex items-center truncate">
             <Folder className="mr-2 flex-shrink-0" aria-hidden="true" />
-            <span className="truncate">
+            <span className="flex-1 truncate">
               {label
                 ? projects.find((project) => project.label === label)?.label
                 : "Select a project..."}
             </span>
           </div>
-          <ChevronDown className="opacity-50 ml-2" aria-hidden="true" />
+          {open ? (
+            <ChevronRight
+              className="opacity-50 ml-2 min-w-[16px] min-h-[16px]"
+              aria-hidden="true"
+            />
+          ) : (
+            <ChevronDown
+              className="opacity-50 ml-2 min-w-[16px] min-h-[16px]"
+              aria-hidden="true"
+            />
+          )}
         </button>
       </PopoverTrigger>
-      <PopoverContent className="min-w-[330px] max-w-[400px] bg-white border border-gray-100 pl-0 pr-0">
+      <PopoverContent className="min-w-[300px] bg-white border border-gray-100 pl-0 pr-0 pb-0">
         <Command>
           <CommandInput
             placeholder="Search projects by name or number..."
             className="h-9"
-            value={search}
-            onValueChange={setSearch}
           />
-          <CommandList id="project-list">
+          <CommandList className="max-w-[300px] overflow-y-auto">
             <CommandEmpty>No project found.</CommandEmpty>
             <CommandGroup>
-              {filteredProjects.slice(0, 4).map((project) => (
-                <CommandItem
-                  key={project.value}
-                  value={project.label}
-                  onSelect={handleSelect}
-                  className={cn(
-                    "p-2",
-                    "cursor-pointer",
-                    label === project.label
-                      ? "bg-gray-200"
-                      : "hover:bg-gray-200 focus:bg-gray-200"
-                  )}
-                >
-                  <span className="truncate flex-1">{project.label}</span>
-                  <Check
+              {projects
+                .sort((a, b) => a.label.localeCompare(b.label))
+                .map((project) => (
+                  <CommandItem
+                    key={project.value}
+                    value={project.label}
+                    onSelect={handleSelect}
                     className={cn(
-                      "ml-auto",
-                      label === project.label ? "opacity-100" : "opacity-0"
+                      "p-2",
+                      "cursor-pointer",
+                      label === project.label
+                        ? "bg-gray-200"
+                        : "hover:bg-gray-200 focus:bg-gray-200"
                     )}
-                  />
-                </CommandItem>
-              ))}
+                  >
+                    <span className="truncate flex-1">{project.label}</span>
+                    <Check
+                      className={cn(
+                        "ml-auto",
+                        label === project.label ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                  </CommandItem>
+                ))}
             </CommandGroup>
           </CommandList>
         </Command>
