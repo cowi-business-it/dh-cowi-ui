@@ -81,14 +81,18 @@ const ProjectSelector = React.forwardRef<
       })
       .sort((a, b) => a.label.localeCompare(b.label));
 
+    // Remove the selected project from filtered results to avoid duplication
+    const withoutSelected = filtered.filter(
+      (project) => project.label !== label
+    );
+
     // If we have a selected project that's not in the first 4 results,
     // remove the last item and add the selected project
     if (
       selectedProject &&
       !filtered.slice(0, 4).some((p) => p.label === label)
     ) {
-      const firstThree = filtered.slice(0, 3);
-      return [...firstThree, selectedProject];
+      return [selectedProject, ...withoutSelected.slice(0, 3)];
     }
 
     return filtered.slice(0, 4);
@@ -136,7 +140,7 @@ const ProjectSelector = React.forwardRef<
                       : "hover:bg-gray-200 focus:bg-gray-200"
                   )}
                 >
-                  {project.label}
+                  <span className="truncate flex-1">{project.label}</span>
                   <Check
                     className={cn(
                       "ml-auto",

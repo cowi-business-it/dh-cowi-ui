@@ -12,7 +12,8 @@ const mockProjects: ProjectProps[] = [
   },
   {
     value: "A882886",
-    label: "A882886 - New hospital",
+    label:
+      "A882886 - New hospital Alpha beta gamma delta epsilon zeta eta theta iota kappa lambda mu nu xi omicron pi rho sigma tau upsilon phi chi psi omega",
   },
   {
     value: "B123456",
