@@ -16,6 +16,7 @@ const meta: Meta<typeof TopHeader> = {
       },
       story: {
         height: "100px",
+        width: "100%",
       },
     },
   },
